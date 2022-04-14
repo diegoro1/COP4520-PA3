@@ -23,3 +23,4 @@ This concurrent linked list is a coarse-grained synchronized LinkedList that use
 A much better approach would be the use of a lazy synchronized linked list or any other variant that does not block the entire list or just blocks the node currently being worked on. 
 
 The end result after running P1 would be a sorted LinkedList with all the presents from id 0 to 500,000. 
+![Screen Shot 2022-04-13 at 11 55 45 PM](https://user-images.githubusercontent.com/47160221/163310766-2d5d31b7-3ccc-45d7-8289-226149267188.png)
