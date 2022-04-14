@@ -7,8 +7,8 @@ public class SensorList {
     public int Size;
 
     public SensorList() {
-        head = new Node<Integer>(-1, Integer.MIN_VALUE);
-        head.Next = new Node<Integer>(-1, Integer.MAX_VALUE);
+        head = new Node<Integer>(Integer.MIN_VALUE, -1);
+        head.Next = new Node<Integer>(Integer.MAX_VALUE, -1);
         this.Size = 0;
     }
 
@@ -76,7 +76,7 @@ public class SensorList {
         lock.lock();
         try {
             while (curr != null) {
-                if (currentIndex >= this.Size && curr.Item != -1)
+                if (currentIndex >= (this.Size - 5) && curr.Key != -1)
                     System.out.print(curr.Item + " ");
 
                 curr = curr.Next;
@@ -93,7 +93,8 @@ public class SensorList {
 
         Node<Integer> curr = head.Next;
         for (int i = 0; i < 5; i++) {
-            System.out.print(curr.Item + " ");
+            System.out.print(curr.Key + " ");
+            curr = curr.Next;
         }
 
         System.out.println("");

@@ -14,14 +14,16 @@ public class Sensor extends Thread {
 
     @Override
     public void run() {
-        int reading = rand.nextInt(171) - 100;
-        Readings.add(this.Interval, reading);
+        while (true) {
+            int reading = rand.nextInt(171) - 100;
+            Readings.add(this.Interval, reading);
 
-        try {
-            Thread.sleep(10000 * this.Frequency);
-        } catch (InterruptedException e) {
+            try {
+                Thread.sleep(1000 * this.Frequency);
+            } catch (InterruptedException e) {
+            }
+
+            this.Interval++;
         }
-
-        this.Interval++;
     }
 }

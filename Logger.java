@@ -9,13 +9,14 @@ public class Logger extends Thread {
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(1000 * this.Freqeuency);
-        } catch (InterruptedException e) {
-        }
+        while (true) {
+            try {
+                Thread.sleep(10000 * this.Freqeuency);
+            } catch (InterruptedException e) {
+            }
 
-        this.Readings.printtop5();
-        this.Readings.printBottom5();
-        // log greatest diff
+            this.Readings.printtop5();
+            this.Readings.printBottom5();
+        }
     }
 }
