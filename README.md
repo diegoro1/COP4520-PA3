@@ -11,7 +11,7 @@ make p1
 
 For P2:
 ```bash
-make p1
+make p2
 ```
 
 ## Approach
