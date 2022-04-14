@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -72,17 +74,24 @@ public class SensorList {
         Node<Integer> curr = head;
         int currentIndex = 0;
 
+        // used to sort from largest to smalles, data would be logged from smalles to
+        // largest,
+        // since curr hits the smallest of the top 5 temperatures.
+        ArrayList<Integer> top = new ArrayList<Integer>();
+
         System.out.print("Top 5: ");
         lock.lock();
         try {
             while (curr != null) {
                 if (currentIndex >= (this.Size - 5) && curr.Key != -1)
-                    System.out.print(curr.Item + " ");
+                    top.add(curr.Item);
 
                 curr = curr.Next;
                 currentIndex++;
             }
-            System.out.println("");
+            Collections.sort(top, Collections.reverseOrder());
+            System.out.println(top);
+            top.clear();
         } finally {
             lock.unlock();
         }
@@ -90,14 +99,16 @@ public class SensorList {
 
     public void printBottom5() {
         System.out.print("Bottom 5: ");
+        ArrayList<Integer> bottom = new ArrayList<Integer>();
 
         Node<Integer> curr = head.Next;
         for (int i = 0; i < 5; i++) {
-            System.out.print(curr.Key + " ");
+            bottom.add(curr.Item);
             curr = curr.Next;
         }
-
-        System.out.println("");
+        Collections.sort(bottom);
+        System.out.println(bottom);
+        bottom.clear();
     }
 
     public int getSize() {

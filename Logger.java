@@ -17,6 +17,7 @@ public class Logger extends Thread {
 
             this.Readings.printtop5();
             this.Readings.printBottom5();
+            // this.Readings.printList();
         }
     }
 }
