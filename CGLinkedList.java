@@ -1,32 +1,31 @@
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class CGLinkedList<T> {
-    private Node<T> head;
+public class CGLinkedList {
+    private Node<Integer> head;
     private Lock lock = new ReentrantLock();
 
-    public CGLinkedList(T first, T second) {
-        head = new Node<T>(first, Integer.MIN_VALUE);
-        head.Next = new Node<T>(second, Integer.MAX_VALUE);
+    public CGLinkedList() {
+        head = new Node<Integer>(Integer.MIN_VALUE);
+        head.Next = new Node<Integer>(Integer.MAX_VALUE);
     }
 
-    public boolean add(T item) {
-        Node<T> pred, curr;
-        int key = item.hashCode();
+    public boolean add(Integer item) {
+        Node<Integer> pred, curr;
+        // int key = item.hashCode();
         lock.lock();
         try {
             pred = head;
             curr = pred.Next;
-            while (curr.Key < key) {
+            while (curr.Item < item) {
                 pred = curr;
                 curr = curr.Next;
             }
 
-            if (key == curr.Key) {
+            if (item == curr.Item) {
                 return false;
             } else {
-                Node<T> node = new Node<T>(item);
-                node.Key = key;
+                Node<Integer> node = new Node<Integer>(item);
                 node.Next = curr;
                 pred.Next = node;
                 return true;
@@ -36,8 +35,8 @@ public class CGLinkedList<T> {
         }
     }
 
-    public boolean remove(T item) {
-        Node<T> pred, curr;
+    public boolean remove(Integer item) {
+        Node<Integer> pred, curr;
         int key = item.hashCode();
         lock.lock();
         try {
@@ -60,7 +59,7 @@ public class CGLinkedList<T> {
     }
 
     public void printList() {
-        Node<T> curr = head;
+        Node<Integer> curr = head;
         while (curr != null) {
             System.out.println(curr.Item.toString() + ", " + curr.Key);
             curr = curr.Next;
