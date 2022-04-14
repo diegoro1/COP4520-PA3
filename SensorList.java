@@ -4,10 +4,12 @@ import java.util.concurrent.locks.ReentrantLock;
 public class SensorList {
     private Node<Integer> head;
     private Lock lock = new ReentrantLock();
+    public int Size;
 
     public SensorList() {
-        head = new Node<Integer>(0, Integer.MIN_VALUE);
-        head.Next = new Node<Integer>(0, Integer.MAX_VALUE);
+        head = new Node<Integer>(-1, Integer.MIN_VALUE);
+        head.Next = new Node<Integer>(-1, Integer.MAX_VALUE);
+        this.Size = 0;
     }
 
     public boolean add(Integer item, int interval) {
@@ -27,6 +29,7 @@ public class SensorList {
                 Node<Integer> node = new Node<Integer>(interval, item);
                 node.Next = curr;
                 pred.Next = node;
+                this.Size++;
                 return true;
             }
         } finally {
@@ -63,5 +66,40 @@ public class SensorList {
             System.out.println(curr.Item.toString() + ", " + curr.Key);
             curr = curr.Next;
         }
+    }
+
+    public void printtop5() {
+        Node<Integer> curr = head;
+        int currentIndex = 0;
+
+        System.out.print("Top 5: ");
+        lock.lock();
+        try {
+            while (curr != null) {
+                if (currentIndex >= this.Size && curr.Item != -1)
+                    System.out.print(curr.Item + " ");
+
+                curr = curr.Next;
+                currentIndex++;
+            }
+            System.out.println("");
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void printBottom5() {
+        System.out.print("Bottom 5: ");
+
+        Node<Integer> curr = head.Next;
+        for (int i = 0; i < 5; i++) {
+            System.out.print(curr.Item + " ");
+        }
+
+        System.out.println("");
+    }
+
+    public int getSize() {
+        return this.Size;
     }
 }
